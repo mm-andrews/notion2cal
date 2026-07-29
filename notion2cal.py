@@ -93,21 +93,7 @@ def parse_datetime(value: str) -> datetime | date:
 
 
 def is_in_past(start, end) -> bool:
-    """Return True if the event ended before today (should be excluded)."""
-    # Use end date if present, otherwise start date — an ongoing multi-day
-    # event should still appear until its end.
-    reference = end if end is not None else start
-
-    today = date.today()
-    now = datetime.now(timezone.utc)
-
-    if isinstance(reference, datetime):
-        # Make naive datetimes timezone-aware (assume UTC) for comparison
-        if reference.tzinfo is None:
-            reference = reference.replace(tzinfo=timezone.utc)
-        return reference < now
-    # Pure date: include events whose date is today or later
-    return reference < today
+    return False
 
 
 def build_calendar(pages: list[dict]) -> Calendar:
